@@ -13,8 +13,8 @@ $whoops->register();
 
 
 $router = new Router(dirname(__DIR__) . "/views");
-$router->get('/blog', 'post/index','blog');
-$router->get('/blog/category', 'category/show', 'category');
-$router->run();
+$router->get('/', 'post/index','home')
+        ->get('/blog/category', 'category/show', 'category')
+        ->run();
 
 ?>
