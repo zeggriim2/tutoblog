@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="h-100">
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
@@ -8,15 +8,23 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
-        <title>Hello, world!</title>
+        <title><?= ucfirst($title ?? 'Mon Blog') ?></title>
     </head>
-    <body>
+    <body class="d-flex flex-column h-100">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <a href="#" class="navbar-brand">Mon site</a>
         </nav>
         <div class="container mt-4">
-            <?php $content ?>
+            <?= $content ?>
         </div>
+
+        <footer class="bg-light py-4 footer mt-auto">
+            <div class="container">
+                <?php if (defined('DEBUG_TIME')): ?>
+                    Page généré en <?= round(1000* (microtime(true) - DEBUG_TIME), 3)?>ms
+                <?php endif; ?>
+            </div>
+        </footer>
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->

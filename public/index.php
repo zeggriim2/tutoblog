@@ -1,20 +1,20 @@
 <?php
+
+use App\Router;
+
 require "../vendor/autoload.php";
 
-define('VIEW_PATH', dirname(__DIR__) . "/views");
-$router = new Router();
+//define('VIEW_PATH', dirname(__DIR__) . "/views");
+//define('DEBUG_TIME', microtime(true));
 
-$router = new AltoRouter();
+$whoops = new \Whoops\Run;
+$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+$whoops->register();
 
-$router->get($)
-$router->map("GET", "/blog", function () {
-    require VIEW_PATH . "/post/index.php";
-});
 
-$router->map("GET", "/blog/categorie", function () {
-    require VIEW_PATH . "/categorie/show.php";
-});
+$router = new Router(dirname(__DIR__) . "/views");
+$router->get('/blog', 'post/index','blog');
+$router->get('/blog/category', 'category/show', 'category');
+$router->run();
 
-$match = $router->match();
-$match['target']();
 ?>
