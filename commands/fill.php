@@ -5,7 +5,7 @@ $faker = Faker\Factory::create('fr_FR');
 
 $dsn = "mysql:dbname=tutoblog;host=127.0.0.1";
 $username = "root";
-$password = "root";
+$password = "";
 
 $pdo = new \PDO($dsn, $username, $password,[
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
@@ -27,7 +27,7 @@ for($i = 0 ; $i < 50  ;$i++){
 }
 
 for($i = 0 ; $i < 5  ;$i++){
-    $pdo->exec("INSERT INTO category SET name='{$faker->sentence(3)}', slug='$faker->slug'");
+    $pdo->exec("INSERT INTO category SET name='{$faker->sentence(2)}', slug='$faker->slug'");
     $categories[] = $pdo->lastInsertId();
 }
 
