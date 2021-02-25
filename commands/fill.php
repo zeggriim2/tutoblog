@@ -5,7 +5,7 @@ $faker = Faker\Factory::create('fr_FR');
 
 $dsn = "mysql:dbname=tutoblog;host=127.0.0.1";
 $username = "root";
-$password = "";
+$password = "root";
 
 $pdo = new \PDO($dsn, $username, $password,[
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
