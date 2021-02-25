@@ -11,6 +11,19 @@ $whoops = new \Whoops\Run;
 $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
 $whoops->register();
 
+if (isset($_GET['page']) && $_GET['page'] === '1'){
+    // réécrite l'url sans le parametre ?page
+    $uri = explode('?', $_SERVER['REQUEST_URI'])[0];
+    $get = $_GET;
+    unset($get['page']);
+    $paramGet = http_build_query($get);
+    if(!empty($paramGet)){
+        $uri = $uri . "?" . $paramGet;
+    }
+    http_response_code(301);
+    header('Location:' . $uri);
+    exit;
+}
 
 $router = new Router(dirname(__DIR__) . "/views");
 $router->get('/', 'post/index','home')

@@ -1,28 +1,17 @@
 <?php
 
+use App\Connection;
 use App\Helpers\Text;
 use App\Models\Post;
+use App\URL;
 
 $title = 'blog';
-$pdo = new \PDO("mysql:dbname=tutoblog;host=127.0.0.1", "root", "root",[
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-]);
-$page = $_GET['page'] ?? 1;
+$pdo = Connection::getPdo();
 
-if (!filter_var($page, FILTER_VALIDATE_INT)){
-    throw new Exception('Numéro de page invalide');
-}
-
-if ($page === '1'){
-    header('Location:' . $router->url('home'));
-    http_response_code(301);
-    exit;
-}
-
-$currentPage = (int)$page;
+$currentPage = URL::getPositiveInt('page',1);
 
 if($currentPage <= 0){
-    throw new Exception('Numero de page invalide');
+
 }
 
 $count = (int)$pdo->query("SELECT COUNT(id) FROM post ")->fetch(PDO::FETCH_NUM)[0];
@@ -50,7 +39,7 @@ $posts = $pdo->query("SELECT * FROM post ORDER BY created_at DESC LIMIT $perPage
     <?php if($currentPage > 1): ?>
         <?php
         $link = $router->url('home');
-        if($currentPage > 2) $link .= '?page' . ($currentPage-1);
+        if($currentPage > 2) $link .= '?page=' . ($currentPage-1);
         ?>
         <a href="<?= $link ?>" class="btn btn-primary">&laquo; Page Précédente</a>
     <?php endif ?>
