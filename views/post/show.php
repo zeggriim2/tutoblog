@@ -15,15 +15,6 @@ $query->setFetchMode(PDO::FETCH_CLASS, Post::class);
 /** @var Post|false $post */
 $post = $query->fetch();
 
-$query =  $pdo->prepare("
-SELECT c.id, c.name, c.slug
-FROM post_category pc 
-JOIN category c ON pc.category_id = c.id
-WHERE pc.post_id = :id");
-$query->execute(['id' => $post->getId()]);
-/** @var  Category[] */
-$categories = $query->fetchAll(PDO::FETCH_CLASS, Category::class);
-
 if ($post === false){
     throw new Exception("Aucun article ne correspond à cette id = $id");
 }
@@ -33,6 +24,15 @@ if ($slug !== $post->getSlug()){
     http_response_code(301);
     header('location:' . $url);
 }
+
+$query =  $pdo->prepare("
+SELECT c.id, c.name, c.slug
+FROM post_category pc 
+JOIN category c ON pc.category_id = c.id
+WHERE pc.post_id = :id");
+$query->execute(['id' => $post->getId()]);
+/** @var  Category[] */
+$categories = $query->fetchAll(PDO::FETCH_CLASS, Category::class);
 
 ?>
 

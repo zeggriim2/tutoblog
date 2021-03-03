@@ -10,10 +10,6 @@ $pdo = Connection::getPdo();
 
 $currentPage = URL::getPositiveInt('page',1);
 
-if($currentPage <= 0){
-
-}
-
 $count = (int)$pdo->query("SELECT COUNT(id) FROM post ")->fetch(PDO::FETCH_NUM)[0];
 
 $perPage = 12;
