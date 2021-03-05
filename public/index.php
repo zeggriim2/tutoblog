@@ -5,7 +5,7 @@ use App\Router;
 require "../vendor/autoload.php";
 
 //define('VIEW_PATH', dirname(__DIR__) . "/views");
-//define('DEBUG_TIME', microtime(true));
+define('DEBUG_TIME', microtime(true));
 
 $whoops = new \Whoops\Run;
 $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);

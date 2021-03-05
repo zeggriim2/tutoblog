@@ -47,4 +47,20 @@ class Post {
     {
         return nl2br(htmlentities($this->content));
     }
+
+    /**
+     * @return Category[]
+     */
+    public function getCategories (): array
+    {
+        return $this->categories;
+    }
+
+    public function addCategorie(Category $category): void
+    {
+        $this->categories[] = $category;
+        $category->setPost($this);
+    }
+
+
 }

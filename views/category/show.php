@@ -37,8 +37,26 @@ $paginatedQuery = new PaginatedQuery(
     "SELECT COUNT(category_id) FROM post_category WHERE category_id = {$category->getId()}"
 );
 
-/** @var Page $posts */
+/** @var Post[] */
 $posts = $paginatedQuery->getItems(Post::class);
+$postsById = [];
+foreach ($posts as $post){
+    $postsById[$post->getId()] = $post;
+}
+$ids = array_keys($postsById);
+
+$categories = $pdo
+    ->query("SELECT c.*, pc.post_id
+                    FROM post_category pc
+                    JOIN category c ON pc.category_id = c.id
+                    WHERE pc.post_id IN (" . implode(' ,', $ids) .")
+                ")->fetchAll(PDO::FETCH_CLASS, Category::class);
+
+// On parcourt les catégories
+foreach ($categories as $category){
+    /** @var $category Category */
+    $postsById[$category->getPostId()]->addCategorie($category);
+}
 
 
 $link = $router->url('category', ['id' => $category->getId(), 'slug'=> $category->getSlug()]);
