@@ -21,6 +21,13 @@ class Router {
         return $this;
     }
 
+    public function post(string $url,string $view,?string $name = null): self
+    {
+        $this->altorouter->map('POST', $url,$view,$name);
+
+        return $this;
+    }
+
     public function url(string $url,array $params = [])
     {
         return $this->altorouter->generate($url, $params);

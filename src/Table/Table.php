@@ -35,4 +35,15 @@ abstract class Table {
         return $result;
     }
 
+    public function delete (int $id): void
+    {
+        $query = $this->pdo->prepare("DELETE FROM " . $this->table . " WHERE id = :id");
+        $ok = $query->execute(['id' => $id]);
+        if ($ok === false){
+            throw new \Exception("Impossible de supprimer l'enregistrement $id dans le table {$this->table}");
+        }
+
+
+    }
+
 }

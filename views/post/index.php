@@ -24,5 +24,4 @@ $link = $router->url('home');
 <div class="d-flex justify-content-between my-4">
     <?= $paginatedQuery->previousPageLink($link)?>
     <?= $paginatedQuery->nextPageLink($link)?>
-
 </div>

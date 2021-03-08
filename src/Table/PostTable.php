@@ -47,4 +47,6 @@ final class PostTable extends Table {
         return [$posts, $paginatedQuery];
     }
 
+
+
 }
