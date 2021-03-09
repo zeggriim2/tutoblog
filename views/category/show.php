@@ -3,6 +3,7 @@
 use App\Connection;
 use App\PaginatedQuery;
 use App\Table\CategoryTable;
+use App\Table\PostTable;
 use App\Models\{Category, Post};
 use App\URL;
 
@@ -22,7 +23,7 @@ if ($slug !== $category->getSlug()){
 }
 $title = "Catégorie " . $category->getName();
 
-[$posts, $paginatedQuery] = (new \App\table\PostTable($pdo))->findPaginatedForCategory($category->getId());
+[$posts, $paginatedQuery] = (new PostTable($pdo))->findPaginatedForCategory($category->getId());
 
 
 $link = $router->url('category', ['id' => $category->getId(), 'slug'=> $category->getSlug()]);

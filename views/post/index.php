@@ -1,7 +1,7 @@
 <?php
 
 use App\Connection;
-use App\table\PostTable;
+use App\Table\PostTable;
 
 $title = 'blog';
 $pdo = Connection::getPdo();

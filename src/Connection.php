@@ -6,7 +6,7 @@ class  Connection {
 
     public static function getPdo(): \PDO
     {
-        return $pdo = new \PDO("mysql:dbname=tutoblog;host=127.0.0.1", "root", "",[
+        return $pdo = new \PDO("mysql:dbname=tutoblog;host=127.0.0.1", "root", "root",[
             \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
         ]);
     }
