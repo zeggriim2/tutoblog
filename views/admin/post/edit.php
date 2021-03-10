@@ -3,6 +3,7 @@
 use App\Connection;
 use App\Table\PostTable;
 use App\Validator;
+use App\HTML\Form;
 
 $pdo = Connection::getPdo();
 $postTable = new PostTable($pdo);
@@ -11,26 +12,26 @@ $post = $postTable->find($params['id']);
 $success = false;
 
 $errors = [];
-
 if (!empty($_POST)){
     Validator::lang('fr');
     $v = new Validator($_POST);
+    $v->rule('required', ['name', 'slug']);
+    $v->rule('lengthBetween', ['name','slug'], 3, 200);
+    $post
+        ->setName($_POST['name'])
+        ->setSlug($_POST['slug'])
+        ->setContent($_POST['content'])
+        ->setCreatedAt($_POST['created_at']);
 
-    $v->rule('required', 'name');
-    $v->rule('lengthBetween', 'name', 3, 200);
     if ($v->validate()){
-        $errors['name'][] = 'Le champ titre ne peux pas être vide';
+        $postTable->update($post);
+        $success = true;
     }else{
         $errors = $v->errors();
     }
-    $post
-        ->setName($_POST['name']);
-    if(empty($errors)){
-        $postTable->update($post);
-        $success = true;
-    }
 }
 
+$form = new Form($post, $errors);
 ?>
 <h1>Editer l'article : '<?= htmlentities($post->getName()); ?>'</h1>
 
@@ -46,14 +47,9 @@ if (!empty($_POST)){
     </div>
 <?php endif; ?>
 <form action="" method="post">
-    <div class="form-group">
-        <label for="name">Titre</label>
-        <input type="text" name="name" class="form-control <?= isset($errors['name']) ? 'is-invalid' : '' ?>" id="exampleInputName" value="<?= htmlentities($post->getName()); ?>">
-        <?php if (isset($errors['name'])): ?>
-            <div class="invalid-feedback">
-                <?= implode('<br>', $errors['name']); ?>
-            </div>
-        <?php endif; ?>
-    </div>
+    <?= $form->input('name', 'Titre'); ?>
+    <?= $form->input('slug', 'URL'); ?>
+    <?= $form->textarea('content', 'Contenu'); ?>
+    <?= $form->input('created_at', 'Date de publication')?>
     <button type="submit" class="btn btn-primary">Modifier</button>
 </form>

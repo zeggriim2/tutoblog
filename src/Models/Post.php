@@ -24,6 +24,12 @@ class Post {
         return $this->slug;
     }
 
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+        return $this;
+    }
+
     public function getName(): ?string
     {
         return $this->name;
@@ -41,6 +47,13 @@ class Post {
     public function getCreatedAt(): DateTime
     {
         return new DateTime($this->created_at);
+    }
+
+    public function setCreatedAt( $createdAt): self
+    {
+        $this->created_at = $createdAt;
+
+        return $this;
     }
 
     public function getFormattedContent(): ?string
@@ -72,5 +85,10 @@ class Post {
     {
         $this->content = $content;
         return $this;
+    }
+
+    public function getContent(): ?string
+    {
+        return $this->content;
     }
 }
