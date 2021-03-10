@@ -47,6 +47,14 @@ final class PostTable extends Table {
         return [$posts, $paginatedQuery];
     }
 
+    public function update(Post $post): void
+    {
+        $query = $this->pdo->prepare("UPDATE " . $this->table . " SET name = :name WHERE id = :id");
+        $ok = $query->execute(['name'=> $post->getName(),'id' => $post->getId()]);
+        if ($ok === false){
+            throw new \Exception("Impossible de mettre à jour l'enregistrement $id dans le table {$this->table}");
+        }
+    }
 
 
 }

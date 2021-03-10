@@ -3,7 +3,7 @@ $title = "Administration";
 
 use App\Auth;
 use App\Connection;
-use App\table\PostTable;
+use App\Table\PostTable;
 
 Auth::check();
 

@@ -62,5 +62,15 @@ class Post {
         $category->setPost($this);
     }
 
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+        return $this;
+    }
 
+    public function setContent(string $content)
+    {
+        $this->content = $content;
+        return $this;
+    }
 }

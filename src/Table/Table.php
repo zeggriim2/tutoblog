@@ -42,8 +42,6 @@ abstract class Table {
         if ($ok === false){
             throw new \Exception("Impossible de supprimer l'enregistrement $id dans le table {$this->table}");
         }
-
-
     }
 
 }
