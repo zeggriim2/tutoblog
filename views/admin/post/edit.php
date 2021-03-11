@@ -4,6 +4,7 @@ use App\Connection;
 use App\Table\PostTable;
 use App\Validator;
 use App\HTML\Form;
+use App\Validators\PostValidator;
 
 $pdo = Connection::getPdo();
 $postTable = new PostTable($pdo);
@@ -14,9 +15,8 @@ $success = false;
 $errors = [];
 if (!empty($_POST)){
     Validator::lang('fr');
-    $v = new Validator($_POST);
-    $v->rule('required', ['name', 'slug']);
-    $v->rule('lengthBetween', ['name','slug'], 3, 200);
+    $v = new PostValidator($_POST, $postTable, $post->getId());
+    // App\Object::hydrate(post
     $post
         ->setName($_POST['name'])
         ->setSlug($_POST['slug'])
